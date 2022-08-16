@@ -76,7 +76,15 @@ const loginUser = asyncHandler(async (req, res) => {
   middleware is a function which runs during request response cycle 
 */
 const getMe = asyncHandler(async (req, res) => {
-  res.json({ message: "User data display" });
+
+  //authenticated user id
+  const { _id, name, email } = await User.findById(req.user.id);
+
+  res.status(200).json({
+    id: _id,
+    name,
+    email,
+  });
 });
 
 // Generate token
